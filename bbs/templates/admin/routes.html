@@ -1,0 +1,111 @@
+{% extends "admin/admin_layout.html"%}
+
+{% block content%}
+
+
+
+<div class="table100 ver3 col-8 m-b-110 ml-5 mr-5 mt-5">
+    <div class="mt-5 mb-2 ">
+        <button type="button" class="btn-lg btn-primary" data-toggle="modal" data-target="#AddRouteModal"><i class="fas fa-plus mr-1"></i>Add Route</button> 
+     </div>
+<table class="table table-hover">
+  <thead>
+    <tr class="row100 head">
+      <th class="column100 column1" data-column="column2">Route</th>
+      <th class="column100 column1" data-column="column2">Time</th>
+      <th class="column100 column1" data-column="column2">Amount</th>
+      <th class="column100 column8" data-column="column8">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for route in routes%}
+    <tr class="">
+      <td class="column100 column1" data-column="column1">{{route.name}}</td>
+      <td class="column100 column1" data-column="column1">{{route.time}}</td>
+      <td class="column100 column1" data-column="column1">GHC{{route.amount}}</td>
+     <td class="column100 column8" data-column="column8"><a class="btn btn-sm btn-primary" href="{{url_for('edit_route',id=route.id)}}">
+         <i class="fas fa-edit"></i></a>
+      <a type="button" class="btn-sm btn-danger" href="{{url_for('delete',id=route.id)}}"> <i class="fas fa-trash-alt"></i></a>
+        </td>
+        </tr>
+
+       
+       
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+
+
+ 
+<!-- Modal to Add Route-->
+  <div class="modal fade" id="AddRouteModal" tabindex="-1" role="dialog" aria-labelledby="AddRouteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add Route</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="">
+                <!-- FORM HERE -->
+                    <form method="POST" action="">
+                        {{form.hidden_tag()}}
+                        <fieldset class="form-group"> 
+                            <div class='form-group'>
+                                {{form.name.label(class="form-control-label")}}
+                                {% if form.name.errors %}
+                                    {{form.name(class="form-control form-control-lg is-invalid")}}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.name.errors %}
+                                            <span>{{error}}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                {{form.name(class="form-control form-control-lg")}}
+                                {% endif %}
+                               
+                            </div>
+                            <div class='form-group'>
+                                {{form.time.label(class="form-control-label")}}
+                                {% if form.time.errors %}
+                                    {{form.time(class="form-control form-control-lg is-invalid")}}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.time.errors %}
+                                            <span>{{error}}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                {{form.time(class="form-control form-control-lg")}}
+                                {% endif %}
+                               
+                            </div>
+                            <div class='form-group'>
+                                {{form.amount.label(class="form-control-label")}}
+                                {% if form.amount.errors %}
+                                    {{form.amount(class="form-control form-control-lg is-invalid")}}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.amount.errors %}
+                                            <span>{{error}}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                {{form.amount(class="form-control form-control-lg")}}
+                                {% endif %}
+                               
+                            </div>
+                           
+                        </fieldset>
+                        <div class='form-group modal-footer'>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            {{form.submit(class="btn btn-primary")}}
+                        </div>
+                    </form>
+              </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content%}

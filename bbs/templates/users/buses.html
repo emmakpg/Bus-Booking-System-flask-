@@ -1,0 +1,19 @@
+{% extends "layout.html"%}
+
+{% block content%}
+
+{% for bus in buses%}
+<article class="media content-section mt-4">
+    <img class="rounded-circle account-img" src="{{url_for('static',filename='img/'+ bus.image_file)}}">
+      <div class="media-body">
+        <div class="article-metadata">
+          <small class="text-muted">{{ bus.number }}</small>
+        </div>
+        <h2>{{ bus.name}}</h2>
+        <p class="article-content">{{ bus.description }}</p>
+      </div>
+    </article>
+
+  {% endfor %}
+{% endblock content%}
+

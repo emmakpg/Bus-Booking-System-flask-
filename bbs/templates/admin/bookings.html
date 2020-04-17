@@ -1,0 +1,40 @@
+{% extends "admin/admin_layout.html"%}
+
+{% block content%}
+
+<div class="table100 ver3 m-b-110 ml-5 mr-5 mt-5">
+<table class="table table-hover">
+  <thead>
+    <tr class="row100 head">
+      <th class="column100 column1" data-column="column2">Name</th>
+      <th class="column100 column2" data-column="column3">Phone</th>
+      <th class="column100 column2" data-column="column3">Bus</th>
+      <th class="column100 column3" data-column="column4">Seat</th>
+      <th class="column100 column4" data-column="column5">Date</th>
+      <th class="column100 column5" data-column="column6">Time</th>
+      <th class="column100 column6" data-column="column7">Amount</th>
+      <th class="column100 column7" data-column="column8">Date Booked</th>
+      <th class="column100 column8" data-column="column8">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for booking in bookings%}
+    <tr class="">
+      <td class="column100 column1" data-column="column1">{{booking.customer.name}}</td>
+      <td class="column100 column1" data-column="column1">{{booking.phone}}</td>
+      <td class="column100 column2" data-column="column2">{{booking.bus.name}}</td>
+      <td class="column100 column3" data-column="column3">{{booking.seat.name}}</td>
+      <td class="column100 column4" data-column="column4">{{booking.date.strftime('%Y-%m-%d')}}</td>
+      <td class="column100 column5" data-column="column5">{{booking.route.time}}</td>
+      <td class="column100 column6" data-column="column6">{{booking.route.amount}}</td>
+      <td class="column100 column7" data-column="column7">{{booking.date_booked.strftime('%Y-%m-%d')}}</td>
+      <td class="column100 column8" data-column="column8"><a class="btn btn-sm btn-primary" href="#">
+        <i class="fas fa-edit"></i></a>
+     <a class="btn btn-sm btn-danger" href="{{url_for('delete',id=booking.id)}}"> <i class="fas fa-trash-alt"></i></a></td>
+     </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+        
+{% endblock content%}

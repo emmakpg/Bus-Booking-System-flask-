@@ -1,0 +1,89 @@
+{% extends "admin/admin_layout.html"%}
+
+{% block content%}
+
+            <div class="content-section ml-5 mt-5 col-6">
+                <!-- FORM HERE -->
+                    <form method="POST" action="">
+                        {{form.hidden_tag()}}
+                        <fieldset class="form-group"> 
+                            <legend class="border-bottom mb-4 h4">Update Available Trip</legend>
+                            <div class='form-group'>
+                                {{form.bus.label(class="form-control-label")}}
+                                {% if form.bus.errors %}
+                                    {{form.bus(class="form-control form-control-lg is-invalid")}}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.bus.errors %}
+                                            <span>{{error}}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                {{form.bus(class="form-control form-control-lg")}}
+                                {% endif %}
+                               
+                            </div>
+                            <div class='form-group'>
+                                {{form.route.label(class="form-control-label")}}
+                                {% if form.route.errors %}
+                                    {{form.route(class="form-control form-control-lg is-invalid")}}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.time.errors %}
+                                            <span>{{error}}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                {{form.route(class="form-control form-control-lg")}}
+                                {% endif %}
+                               
+                            </div>
+                            <div class='form-group'>
+                                {{form.date.label(class="form-control-label")}}
+                                {% if form.date.errors %}
+                                    {{form.date(class="form-control form-control-lg is-invalid")}}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.date.errors %}
+                                            <span>{{error}}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                {{form.date(class="form-control form-control-lg")}}
+                                {% endif %}
+                               
+                            </div>
+                            <div class='form-group'>
+                                {{form.time.label(class="form-control-label")}}
+                                {% if form.time.errors %}
+                                    {{form.time(class="form-control form-control-lg is-invalid")}}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.time.errors %}
+                                            <span>{{error}}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                {{form.time(class="form-control form-control-lg")}}
+                                {% endif %}
+                               
+                            </div>
+                            <div class='form-group'>
+                                {{form.status.label(class="form-control-label")}}
+                                {% if form.status.errors %}
+                                    {{form.status(class="form-control form-control-lg is-invalid")}}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.status.errors %}
+                                            <span>{{error}}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                {{form.status(class="form-control form-control-lg")}}
+                                {% endif %}
+                               
+                            </div>
+                           
+                        </fieldset>
+                        <div class='form-group'>
+                            {{form.submit(class="btn btn-primary")}}
+                        </div>
+                    </form>
+              </div>
+     
+{% endblock content%}

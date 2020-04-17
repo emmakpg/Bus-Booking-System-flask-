@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  {% if title%}
+  <title>BBS-{{title}}</title>
+  {%else%}
+  <title>Bus Booking System</title>
+  {% endif %}
+  <!-- Bootstrap core CSS -->
+  <link href="./static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='./main.css')}}">
+
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top mb-4">
+    <div class="container">
+      <a class="navbar-brand" href="{{ url_for('home')}}">Bus Booking System</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="{{ url_for('home')}}">Home
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('about')}}">About</a>
+          </li>
+          {% if current_user.is_authenticated%}
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('logout')}}">Logout</a>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('login')}}">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('register')}}">Register</a>
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+ <main role="main" class="container">
+        <div class="row">
+          <div class="col-md-8">
+            {%with messages = get_flashed_messages(with_categories=true)%}
+                {% if messages%}
+                    {% for category,message in messages%}
+                        <div class="alert alert-{{category}}">
+                            {{message}}
+                        </div>
+                    {% endfor %}
+
+                {% endif %}
+
+            {%endwith%}
+
+            {% block content %}{% endblock %}
+          </div>
+          <div class="col-md-4">
+            <div class="content-section">
+              <h3>Our Sidebar</h3>
+              <p class='text-muted'>You can put any information here you'd like.
+                <ul class="list-group">
+                  <a class="list-group-item list-group-item-light"  href="{{url_for('user_buses')}}">Buses</a>
+                  <a class="list-group-item list-group-item-light"  href="{{url_for('trips')}}">Trips</a>
+                  <li class="list-group-item list-group-item-light">Announcements</li>
+                  {% if current_user.is_authenticated%}
+                  <a class="list-group-item list-group-item-light" href="{{url_for('account')}}">Account Settings</a>
+                  <a class="list-group-item list-group-item-light" href="{{url_for('mybookings',user_id=current_user.id )}}">My Bookings</a>
+                  {% endif %}
+                </ul>
+              </p>
+            </div>
+          </div>
+        </div>
+      </main>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="./static/vendor/jquery/jquery.slim.min.js"></script>
+  <script src="./static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

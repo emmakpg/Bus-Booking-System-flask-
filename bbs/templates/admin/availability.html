@@ -1,0 +1,144 @@
+{% extends "admin/admin_layout.html"%}
+
+{% block content%}
+
+
+
+<div class="table100 ver3 col-10 m-b-110 ml-5 mr-5 mt-5">
+    <div class="mt-5 mb-2 ">
+        <button type="button" class="btn-lg btn-primary" data-toggle="modal" data-target="#AvModal">
+          <i class="fas fa-plus mr-1"></i>Add Availability</button> 
+     </div>
+<table class="table table-hover">
+  <thead>
+    <tr class="row100 head">
+      <th class="column100 column1" data-column="column2">Bus</th>
+      <th class="column100 column1" data-column="column2">Route</th>
+      <th class="column100 column1" data-column="column2">Dep Date</th>
+      <th class="column100 column8" data-column="column8">Amount</th>
+      <th class="column100 column8" data-column="column8">Dep Time</th>
+      <th class="column100 column8 text-center" data-column="column8"> Status</th>
+      <th class="column100 column1" data-column="column2">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for available in availability %}
+     <tr class="">
+      <td class="column100 column1" data-column="column1">{{available.bus.name}}</td>
+      <td class="column100 column1" data-column="column1">{{available.route.name}}</td>
+      <td class="column100 column1" data-column="column1">{{available.date}}</td>
+      <td class="column100 column1" data-column="column1">GHC{{available.amount}}</td>
+      <td class="column100 column1" data-column="column1">{{available.time}}</td>
+      <td class="column100 column1" data-column="column1">{{available.status}}</td> 
+     <td class="column100 column8" data-column="column8"><span data-toggle="modal" data-target="#AvEditModal">
+         <a class="btn btn-sm btn-primary" href="{{url_for('edit_availability', id=available.id)}}"><i class="fas fa-edit"></i></a></span>
+         <a type="button" class="btn-sm btn-danger" href="{{url_for('delete',id=available.id)}}"> <i class="fas fa-trash-alt"></i></a></td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+
+        
+<!-- Modal to Add Availability-->
+  <div class="modal fade" id="AvModal" tabindex="-1" role="dialog" aria-labelledby="AvModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add Availability</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="">
+                <!-- FORM HERE -->
+                    <form method="POST" action="">
+                        {{form.hidden_tag()}}
+                        <fieldset class="form-group"> 
+                            <div class='form-group'>
+                                {{form.bus.label(class="form-control-label")}}
+                                {% if form.bus.errors %}
+                                    {{form.bus(class="form-control form-control-lg is-invalid")}}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.bus.errors %}
+                                            <span>{{error}}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                {{form.bus(class="form-control form-control-lg")}}
+                                {% endif %}
+                               
+                            </div>
+                            <div class='form-group'>
+                                {{form.route.label(class="form-control-label")}}
+                                {% if form.route.errors %}
+                                    {{form.route(class="form-control form-control-lg is-invalid")}}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.time.errors %}
+                                            <span>{{error}}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                {{form.route(class="form-control form-control-lg")}}
+                                {% endif %}
+                               
+                            </div>
+                            <div class='form-group'>
+                                {{form.date.label(class="form-control-label")}}
+                                {% if form.date.errors %}
+                                    {{form.date(class="form-control form-control-lg is-invalid")}}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.date.errors %}
+                                            <span>{{error}}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                {{form.date(class="form-control form-control-lg")}}
+                                {% endif %}
+                               
+                            </div>
+                            <div class='form-group'>
+                                {{form.time.label(class="form-control-label")}}
+                                {% if form.time.errors %}
+                                    {{form.time(class="form-control form-control-lg is-invalid")}}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.time.errors %}
+                                            <span>{{error}}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                {{form.time(class="form-control form-control-lg")}}
+                                {% endif %}
+                               
+                            </div>
+                            <div class='form-group'>
+                                {{form.status.label(class="form-control-label")}}
+                                {% if form.status.errors %}
+                                    {{form.status(class="form-control form-control-lg is-invalid")}}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.status.errors %}
+                                            <span>{{error}}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                {{form.status(class="form-control form-control-lg")}}
+                                {% endif %}
+                               
+                            </div>
+                           
+                        </fieldset>
+                        <div class='form-group modal-footer'>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            {{form.submit(class="btn btn-primary")}}
+                        </div>
+                    </form>
+              </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  {% endblock content%}
