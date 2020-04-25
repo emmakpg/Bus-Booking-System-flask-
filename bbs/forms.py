@@ -78,6 +78,7 @@ class UpdateAccountForm(FlaskForm):
 
     
 class BookingForm(FlaskForm):
+    ticket_number = TextField('Ticket No.')
     name = TextField('Name')
     email = TextField('Email')
     phone = TextField('Phone')
@@ -88,6 +89,7 @@ class BookingForm(FlaskForm):
 
     def __init__(self, *args, **kwargs):
         super(BookingForm, self).__init__(*args, **kwargs)
+        read_only(self.ticket_number)
         read_only(self.name)
         read_only(self.date)
         read_only(self.bus_route_time)

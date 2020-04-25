@@ -15,7 +15,7 @@
                     <p class="display-4 text-center">{{bookings_count}}</p>
                 </div>
                 <div class="card-footer d-flex align-items-center justify-content-between">
-                   <a class="small text-white stretched-link" href="{{url_for('bookings')}}">View Details</a>
+                   <a class="small text-white stretched-link" href="{{url_for('myadmin.bookings')}}">View Details</a>
                     <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                 </div>
             </div>
@@ -26,7 +26,7 @@
                 <div class="card-body">
                     <p class="display-4 text-center">{{buses_count}}</p></div>
                 <div class="card-footer d-flex align-items-center justify-content-between">
-                    <a class="small text-white stretched-link" href="{{url_for('buses')}}">View Details</a>
+                    <a class="small text-white stretched-link" href="{{url_for('myadmin.buses')}}">View Details</a>
                     <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                 </div>
             </div>
@@ -37,7 +37,7 @@
                 <div class="card-body">
                     <p class="display-4 text-center">{{trips_count}}</p></div>
                 <div class="card-footer d-flex align-items-center justify-content-between">
-                    <a class="small text-white stretched-link" href="{{url_for('routes')}}">View Details</a>
+                    <a class="small text-white stretched-link" href="{{url_for('myadmin.routes')}}">View Details</a>
                     <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                 </div>
             </div>
@@ -46,7 +46,7 @@
             <div class="card bg-danger text-white mb-4">
                 <div class="card-body">Admin Account</div>
                 <div class="card-footer d-flex align-items-center justify-content-between">
-                    <a class="small text-white stretched-link" href="{{url_for('account')}}">View Details</a>
+                    <a class="small text-white stretched-link" href="{{url_for('users.account')}}">View Details</a>
                     <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                 </div>
             </div>
@@ -61,8 +61,15 @@
         </div>
         <div class="col-xl-6">
             <div class="card mb-4">
-                <div class="card-header"><i class="fas fa-chart-bar mr-1"></i>Bar Chart Example</div>
+                <div class="card-header"><i class="fas fa-chart-bar mr-1"></i>Daily Bookings</div>
                 <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
+
+                <script type="text/javascript">
+                var date_labels = {{date_labels|tojson}};
+                var number_of_bookings = {{number_of_bookings|tojson}};
+                
+                </script>
+                <script src="{{url_for('static', filename='/assets/demo/chart-bar-demo.js')}}"></script>
             </div>
         </div>
     </div>

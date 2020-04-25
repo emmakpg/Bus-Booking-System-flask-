@@ -6,6 +6,7 @@
 <table class="table table-hover">
   <thead>
     <tr class="row100 head">
+      <th class="column100 column1" data-column="column2">Ticket No.</th>
       <th class="column100 column1" data-column="column2">Name</th>
       <th class="column100 column2" data-column="column3">Phone</th>
       <th class="column100 column2" data-column="column3">Bus</th>
@@ -20,17 +21,18 @@
   <tbody>
     {% for booking in bookings%}
     <tr class="">
+      <td class="column100 column1" data-column="column1">{{booking.ticket_number}}</td>
       <td class="column100 column1" data-column="column1">{{booking.customer.name}}</td>
       <td class="column100 column1" data-column="column1">{{booking.phone}}</td>
       <td class="column100 column2" data-column="column2">{{booking.bus.name}}</td>
       <td class="column100 column3" data-column="column3">{{booking.seat.name}}</td>
       <td class="column100 column4" data-column="column4">{{booking.date.strftime('%Y-%m-%d')}}</td>
       <td class="column100 column5" data-column="column5">{{booking.route.time}}</td>
-      <td class="column100 column6" data-column="column6">{{booking.route.amount}}</td>
+      <td class="column100 column6" data-column="column6">GHC{{booking.route.amount}}</td>
       <td class="column100 column7" data-column="column7">{{booking.date_booked.strftime('%Y-%m-%d')}}</td>
       <td class="column100 column8" data-column="column8"><a class="btn btn-sm btn-primary" href="#">
         <i class="fas fa-edit"></i></a>
-     <a class="btn btn-sm btn-danger" href="{{url_for('delete',id=booking.id)}}"> <i class="fas fa-trash-alt"></i></a></td>
+     <a class="btn btn-sm btn-danger" href="{{url_for('myadmin.delete',id=booking.id)}}"> <i class="fas fa-trash-alt"></i></a></td>
      </tr>
     {% endfor %}
   </tbody>

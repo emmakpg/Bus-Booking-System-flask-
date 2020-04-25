@@ -21,7 +21,7 @@
       <td class="column100 column1" data-column="column1">{{seat.name}}</td>
      <td class="column100 column8" data-column="column8"><a class="btn btn-sm btn-primary" href="#">
          <i class="fas fa-edit"></i></a>
-         <a type="button" class="btn-sm btn-danger" href="{{url_for('delete',id=seat.id)}}"> <i class="fas fa-trash-alt"></i></a></td>
+         <a type="button" class="btn-sm btn-danger" href="{{url_for('myadmin.delete',id=seat.id)}}"> <i class="fas fa-trash-alt"></i></a></td>
         </tr>
     {% endfor %}
   </tbody>
