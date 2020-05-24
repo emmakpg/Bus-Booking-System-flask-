@@ -1,0 +1,139 @@
+{% extends "admin/admin_layout.html"%}
+
+{% block content%}
+                <main>
+                    <div class="container-fluid">
+                        <h1 class="mt-4">Reports</h1>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item"><a href="{{url_for('myadmin.dashboard')}}">Dashboard</a></li>
+                            <li class="breadcrumb-item active">Reports</li>
+                        </ol>
+                        
+                        <div class="card mb-4">
+                            <div class="card-header"><i class="fas fa-chart-area mr-1"></i>Sales Report</div>
+                            <div class="card-body">
+                                <div class="row mb-1">
+                                    <div class="col-3 ">
+                                        <form method="POST" action="">
+                                            {{form.hidden_tag()}}
+                                            <fieldset class="form-group"> 
+                                                <div class='form-group'>
+                                                    {{form.date.label(class="form-control-label")}}
+                                                    {% if form.date.errors %}
+                                                        {{form.date(class="form-control form-control-lg is-invalid")}}
+                                                        <div class="invalid-feedback">
+                                                            {% for error in form.date.errors %}
+                                                                <span>{{error}}</span>
+                                                            {% endfor %}
+                                                        </div>
+                                                    {% else %}
+                                                    {{form.date(class="form-control")}}
+                                                    {% endif %}
+                                                </div>   
+                                             </div>
+                                            </fieldset>
+                                            <div class='form-group mt-2'>
+                                                <br>{{form.submit(class="btn btn-primary")}}
+                                            </div>
+                                        </form>
+    
+                            <div class="col-3 ">
+                                <form method="POST" action="">
+                                    {{form.hidden_tag()}}
+                                    <fieldset class="form-group"> 
+                                        <div class='form-group'>
+                                            {{form1.month.label(class="form-control-label")}}
+                                            {% if form1.month.errors %}
+                                                {{form1.month(class="form-control form-control-lg is-invalid")}}
+                                                <div class="invalid-feedback">
+                                                    {% for error in form1.month.errors %}
+                                                        <span>{{error}}</span>
+                                                    {% endfor %}
+                                                </div>
+                                            {% else %}
+                                            {{form1.month(class="form-control")}}
+                                            {% endif %}
+                                        </div>   
+                                     </div>
+                                    </fieldset>
+                                    <div class='form-group mt-2'>
+                                        <br>{{form1.submit(class="btn btn-primary")}}
+                                    </div>
+                                </form>
+
+                                <div class="col-3 ">
+                                    <form method="POST" action="">
+                                        {{form.hidden_tag()}}
+                                        <fieldset class="form-group"> 
+                                            <div class='form-group'>
+                                                {{form2.week.label(class="form-control-label")}}
+                                                {% if form2.week.errors %}
+                                                    {{form2.week(class="form-control form-control-lg is-invalid")}}
+                                                    <div class="invalid-feedback">
+                                                        {% for error in form2.week.errors %}
+                                                            <span>{{error}}</span>
+                                                        {% endfor %}
+                                                    </div>
+                                                {% else %}
+                                                {{form2.week(class="form-control")}}
+                                                {% endif %}
+                                            </div>   
+                                         </div>
+                                        </fieldset>
+                                        <div class='form-group mt-2'>
+                                            <br>{{form2.submit(class="btn btn-primary")}}
+                                        </div>
+                                    </form>
+                            </div>
+                        </div>
+                    </div>
+                             <div class="card-footer small text-muted">Last Updated today at {{last_update_time}}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="card mb-4">
+                                    <div class="card-header"><i class="fas fa-chart-bar mr-1"></i>Daily Bookings</div>
+                                    <div class="card-body"><canvas id="myBarChart" width="100%" height="50"></canvas></div>
+                                    <script type="text/javascript">
+                                        var date_labels = {{date_labels|tojson}};
+                                        var number_of_bookings = {{number_of_bookings|tojson}};
+                                        
+                                        </script>
+                                        <script src="{{url_for('static', filename='/assets/demo/chart-bar-demo.js')}}"></script>        
+                                    <div class="card-footer small text-muted">Last Updated today at {{last_update_time}}</div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="card mb-4">
+                                    <div class="card-header"><i class="fas fa-chart-pie mr-1"></i>Pie Chart</div>
+                                    <div class="card-body"><canvas id="myPieChart" width="100%" height="50"></canvas></div>
+                                    <div class="card-footer small text-muted">Last Updated today at {{last_update_time}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+                <footer class="py-4 bg-light mt-auto">
+                    <div class="container-fluid">
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <div class="text-muted">Copyright &copy; Stephen Kpogo 2019</div>
+                            <div>
+                                <a href="#">Privacy Policy</a>
+                                &middot;
+                                <a href="#">Terms &amp; Conditions</a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="./static/js/scripts.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+        <script src="./static/assets/demo/chart-area-demo.js"></script>
+        <script src="./static/assets/demo/chart-bar-demo.js"></script>
+        <script src="./static/assets/demo/chart-pie-demo.js"></script>
+    </body>
+</html>
+{% endblock content%}

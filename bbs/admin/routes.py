@@ -1,15 +1,21 @@
-from flask import Blueprint,render_template,redirect,url_for,flash,request,abort
-from bbs.forms import RegistrationForm, LoginForm, AddBusForm,AddSeatsForm,AddRouteForm,AvailabilityForm,UpdateAccountForm,BookingForm
+from flask import Blueprint,render_template,redirect,url_for,flash,request,abort,send_file
+from bbs.forms import RegistrationForm, LoginForm, AddBusForm,AddSeatsForm,AddRouteForm,AvailabilityForm,UpdateAccountForm,BookingForm,ReportForm
 from flask_security import Security, SQLAlchemyUserDatastore, login_required,roles_required, login_user,logout_user,current_user
 from flask_security.utils import hash_password, verify_password
 from bbs import app,db,super_admin
 from bbs.models import User,Role,Availability,Buses,Booking,Seats,Route,Controller,BookingSchema
 from bbs.admin.utils import savebus_picture
+import os
+import csv
+from datetime import datetime
+from isoweek import Week
 
 myadmin = Blueprint('myadmin',__name__)
 
+
 super_admin.add_view(Controller(User,db.session))
 super_admin.add_view(Controller(Booking,db.session))
+
 
 @myadmin.route('/dashboard')
 @roles_required('admin')
@@ -26,8 +32,12 @@ def dashboard():
     date_vs_booking = { i:date_booked.count(i) for i in date_booked}
     number_of_bookings = list(date_vs_booking.values())
     date_labels = list(date_vs_booking.keys())
-  
-    return render_template('/admin/admin.html',bookings_count=bookings,buses_count=buses,trips_count=trips,date_labels=date_labels,number_of_bookings=number_of_bookings)
+
+    #total revenue from bookings
+    bookings_r = Booking.query.all()
+    amount_r = [ i.route.amount for i in bookings_r]
+    total_revenue = sum(amount_r)
+    return render_template('/admin/admin.html',total_revenue=total_revenue,bookings_count=bookings,buses_count=buses,trips_count=trips,date_labels=date_labels,number_of_bookings=number_of_bookings)
 
 
 @myadmin.route('/buses',methods=['GET','POST'])
@@ -78,6 +88,20 @@ def seats():
 @roles_required('admin')
 def bookings():
     bookings = Booking.query.all()
+
+    #Generate CSV for bookings
+    abs_path = os.path.abspath("../"+"./BBS/bbs/reports")
+    
+    with open( abs_path +'./bookings.csv','w',newline='') as f:
+        out = csv.writer(f)
+        out.writerow(['Ticket Number','Name','Phone','Bus','Seat','Departure Date','Time','Amount','Date Booked'])
+        for booking in bookings:
+            out.writerow([booking.ticket_number,booking.customer.name,booking.phone,booking.bus.name,booking.seat.name,
+                    booking.date.strftime('%Y-%m-%d'),booking.route.time,booking.route.amount,booking.date_booked ])
+
+
+    #Generate CSV for Weekly bookings
+ 
     return render_template('/admin/bookings.html',bookings=bookings)
 
 
@@ -199,16 +223,123 @@ def edit_bus(id):
             form.description.data = bus.description
         return render_template('/admin/edit_bus.html',form=form)
 
-# @myadmin.route('/graph_data')
-# @roles_required('admin')
-# def getgraph_data():
-#     date_booked = db.session.query(Booking).filter(Booking.date_booked).order_by(Booking.date_booked.desc()).all()
 
-#     booking_schema = BookingSchema(many=True)
-#     date_booked = booking_schema.dump(date_booked)
-#     date_booked = [ ls["date_booked"][:10] for ls in date_booked ]
-#     date_vs_booking = { i:date_booked.count(i) for i in date_booked}
-#     number_of_bookings = list(date_vs_booking.values())
-#     date_labels = list(date_vs_booking.keys())
-#     flash(f"{date_labels}")
-#     return redirect(url_for('myadmin.dashboard'))
+@myadmin.route('/export_csv')
+@roles_required('admin')
+def export_csv():
+    abs_path = os.path.abspath("../"+"./BBS/bbs/reports")
+    path = abs_path +'\\bookings.csv'
+    return send_file(path,as_attachment=True)
+
+@myadmin.route('/export_dailybookings_csv')
+@roles_required('admin')
+def export_dailybookings_csv():
+    abs_path = os.path.abspath("../"+"./BBS/bbs/reports")
+    path = abs_path +'\\daily_bookings.csv'
+    return send_file(path,as_attachment=True)
+
+@myadmin.route('/export_weeklybookings_csv')
+@roles_required('admin')
+def export_weeklybookings_csv():
+    abs_path = os.path.abspath("../"+"./BBS/bbs/reports")
+    path = abs_path +'\\weekly_bookings.csv'
+    return send_file(path,as_attachment=True)
+
+@myadmin.route('/export_monthlybookings_csv')
+@roles_required('admin')
+def export_monthlybookings_csv():
+    abs_path = os.path.abspath("../"+"./BBS/bbs/reports")
+    path = abs_path +'\\monthly_bookings.csv'
+    return send_file(path,as_attachment=True)
+
+
+@myadmin.route('/reports',methods=['GET','POST'])
+@roles_required('admin')
+def reports():
+    
+    form = ReportForm()
+    form1 = ReportForm()
+    form2 =ReportForm()
+    #GRAPH WORK
+    date_booked = db.session.query(Booking).filter(Booking.date_booked).order_by(Booking.date_booked.asc()).all()
+    booking_schema = BookingSchema(many=True)
+    date_booked = booking_schema.dump(date_booked)
+    date_booked = [ ls["date_booked"][:10] for ls in date_booked ]
+    date_vs_booking = { i:date_booked.count(i) for i in date_booked}
+    number_of_bookings = list(date_vs_booking.values())
+    date_labels = list(date_vs_booking.keys())
+
+    last_update_time = datetime.utcnow().strftime('%H:%M')
+    abs_path = os.path.abspath("../"+"./BBS/bbs/reports")   #path to save reports
+    
+    if request.method == 'POST' and 'date' in request.form:
+        #flash()
+        #Generate CSV for Daily bookings
+        booked_today = db.session.query(Booking).filter(Booking.date_booked==form.date.data).order_by(Booking.date_booked.asc()).all()
+        
+        if len(booked_today) is not 0:
+            with open( abs_path +'./daily_bookings.csv','w',newline='') as f:
+             out = csv.writer(f)
+             out.writerow(['Ticket Number','Name','Phone','Bus','Seat','Departure Date','Time','Amount','Date Booked'])
+             for booking in booked_today:
+                out.writerow([booking.ticket_number,booking.customer.name,booking.phone,booking.bus.name,booking.seat.name,
+                    booking.date.strftime('%Y-%m-%d'),booking.route.time,booking.route.amount,booking.date_booked ])
+            
+            return redirect(url_for('myadmin.export_dailybookings_csv'))
+            flash('Daily Report Exported','success') 
+        else:
+            flash('No Reports for day selected','info') 
+    
+    bookings = Booking.query.all()
+    query = [ booking.date_booked for booking in bookings]
+
+    #Generate Monthly Report
+    if request.method == 'POST' and 'month' in request.form:
+    
+        month =  form1.month.data
+        month_book_dates = [l for l in query if month in l]
+    
+        with open( abs_path +'./monthly_bookings.csv','w',newline='') as f:
+            out = csv.writer(f)
+            out.writerow(['Ticket Number','Name','Phone','Bus','Seat','Departure Date','Time','Amount','Date Booked'])
+            for book_date in month_book_dates:
+                booking = db.session.query(Booking).filter(Booking.date_booked==book_date).order_by(Booking.date_booked.asc()).all()
+                for booking in booking:
+                    out.writerow([booking.ticket_number,booking.customer.name,booking.phone,booking.bus.name,booking.seat.name,
+                    booking.date.strftime('%Y-%m-%d'),booking.route.time,booking.route.amount,booking.date_booked ])
+        #flash('Monthly Report Exported','success')
+        return redirect(url_for('myadmin.export_monthlybookings_csv'))
+
+    #Generate Weekly Report
+    if request.method == 'POST' and 'week' in request.form:
+        current_wk = form2.week.data
+        if current_wk <= 53:
+            w = Week(2020,current_wk)
+            days_wk = w.days()
+            wk_n=[]
+            for day in days_wk:
+                wk_n.append(day.strftime('%Y-%m-%d'))
+            wkdays_in_bookings = [day for day in wk_n if day in query]
+            if len(wkdays_in_bookings)==0:
+                flash(f'No bookings for Week {current_wk}','info')
+            else:
+                with open( abs_path +'./weekly_bookings.csv','w',newline='') as f:
+                    out = csv.writer(f)
+                    out.writerow(['Ticket Number','Name','Phone','Bus','Seat','Departure Date','Time','Amount','Date Booked'])
+                    for book_date in wkdays_in_bookings:
+                        booking = db.session.query(Booking).filter(Booking.date_booked==book_date).order_by(Booking.date_booked.asc()).all()
+                        for booking in booking:
+                            out.writerow([booking.ticket_number,booking.customer.name,booking.phone,booking.bus.name,booking.seat.name,
+                                booking.date.strftime('%Y-%m-%d'),booking.route.time,booking.route.amount,booking.date_booked ])
+        
+                return redirect(url_for('myadmin.export_weeklybookings_csv'))
+
+        else:
+            flash('Week number out of range','warning')
+    
+
+
+    return render_template('admin/reports.html',number_of_bookings=number_of_bookings,date_labels=date_labels,
+                            last_update_time=last_update_time,form=form,form1=form1,form2=form2)
+
+    

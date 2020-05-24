@@ -6,8 +6,11 @@ from bbs import app,db
 
 main = Blueprint('main',__name__)
 
-
 @main.route('/')
+def landing():
+    return render_template('home.html')
+
+
 @main.route('/home')
 def home():
     if current_user.has_role('admin'):

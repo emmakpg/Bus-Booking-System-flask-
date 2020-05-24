@@ -98,6 +98,8 @@ class Seats(db.Model):
     def __repr__(self):
         return f"('{self.name}')"
 
+now = datetime.utcnow()
+
 class Booking(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     ticket_number = db.Column(db.String(60), nullable=False)
@@ -106,7 +108,7 @@ class Booking(db.Model):
     bus_id = db.Column(db.Integer, db.ForeignKey('buses.id'),nullable=False)
     route_id = db.Column(db.Integer, db.ForeignKey('route.id'),nullable=False)
     phone = db.Column(db.Integer(), nullable=False)
-    date_booked = db.Column(db.DateTime, nullable=False,default=datetime.utcnow)
+    date_booked = db.Column(db.String(120), nullable=False,default=now.strftime('%Y-%m-%d'))
     email = db.Column(db.String(120), nullable=False)
     date = db.Column(db.DateTime, nullable=False)
     time = db.Column(db.String(60), nullable=False)

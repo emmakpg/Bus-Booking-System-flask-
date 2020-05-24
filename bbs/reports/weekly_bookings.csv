@@ -1,0 +1,5 @@
+Ticket Number,Name,Phone,Bus,Seat,Departure Date,Time,Amount,Date Booked
+TRIP-20200525-1368,test test,545405551,Metro Mass T1,A6,2020-05-25,Night,50,2020-05-23
+TRIP-20200528-1882,test test,545405551,Metro Mass T1,A10,2020-05-28,Night,50,2020-05-23
+TRIP-20200528-1257,test test,545405551,Metro Mass T1,A5,2020-05-28,Night,50,2020-05-24
+TRIP-20200528-1663,test test,545405551,Metro Mass T1,A2,2020-05-28,Night,50,2020-05-24

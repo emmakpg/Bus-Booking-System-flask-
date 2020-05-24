@@ -2,9 +2,10 @@ from flask import Blueprint,render_template,redirect,url_for,flash,request,abort
 from bbs.forms import RegistrationForm, LoginForm, AddBusForm,AddSeatsForm,AddRouteForm,AvailabilityForm,UpdateAccountForm,BookingForm
 from flask_security import Security, SQLAlchemyUserDatastore, login_required,roles_required, login_user,logout_user,current_user
 from flask_security.utils import hash_password, verify_password
-from bbs import app,db
+from bbs import app,db,mail
 from bbs.models import User,Role,Availability,Buses,Booking,Seats,BookingSchema,SeatSchema
 from bbs.users.utils import save_picture,generate_ticket_no
+from flask_mail import Message
 
 
 
@@ -59,8 +60,9 @@ def login():
                flash(f'{user.username}, Login Successful!','success')  
                next_page = request.args.get('next')
                return redirect(next_page) if next_page else redirect(url_for('main.home')) 
+               
         else:
-            flash('Unsuccessful. Kindly enter correct email and password','danger')
+            flash('Unsuccessful. Kindly enter correct username and password','danger')
     return render_template('/users/login.html',title='Login',form=form)
 
 @users.route('/logout')
@@ -98,8 +100,10 @@ def user_buses():
     buses = Buses.query.all()
     return render_template('/users/buses.html',buses=buses,title='Buses')
 
-
-
+def sendbooking_mail(email,ticket_no,seat):
+    message = Message(subject='BBS-Bus Booking Details',sender='BBS',recipients=[email])
+    message.html = f'<p>This is your booking number: {ticket_no}</p><p><strong>Seat:</strong>{seat}</p>'                 
+    mail.send(message)
 
 @users.route('/booking-#<int:available_id>',methods =['GET','POST'])
 def booking(available_id):
@@ -120,10 +124,6 @@ def booking(available_id):
         all_seats = [ ls["id"] for ls in all_seats]
         remaining_seat = [ seat for seat in all_seats if seat not in booked_seats]
        
-        # flash(all_seats)
-        # flash(booked_seats)
-        #flash(db.session.query(Seats).filter(Seats.id==1).first())
-        #form.seat.choices = [(seat.id,seat.name) for seat in Seats.query.order_by('name')]
         form.seat.choices = [(seat.id,seat.name) for seat in \
                             [ db.session.query(Seats).filter(Seats.id==seat_id).first() for seat_id in remaining_seat ]]
       
@@ -137,6 +137,7 @@ def booking(available_id):
             db.session.add(booking)
             db.session.commit()
             flash('Booking Completed!','success')
+            sendbooking_mail(form.email.data,ticket_number,form.seat.data)
             return redirect(url_for('main.home'))
         elif request.method=='GET':
             form.ticket_number.data = ticket_number

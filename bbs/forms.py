@@ -93,3 +93,11 @@ class BookingForm(FlaskForm):
         read_only(self.name)
         read_only(self.date)
         read_only(self.bus_route_time)
+
+class ReportForm(FlaskForm):
+    date = DateField('Daily Report',format='%Y-%m-%d',validators=[DataRequired()])
+    month = SelectField('Monthly Report',choices=[('-01','January'),('-02','February'),('-03','March'),
+                                        ('-04','April'),('-05','May'),('-06','June'),('-07','July'),('-08','August'),
+                                        ('-09','September'),('-10','October'),('-11','November'),('-12','December')])
+    submit = SubmitField('Query')
+    week = IntegerField('Weekly Report',validators=[DataRequired()],render_kw={"placeholder":"Insert Week Number"})
