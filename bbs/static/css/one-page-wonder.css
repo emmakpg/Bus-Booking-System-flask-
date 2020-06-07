@@ -6,6 +6,7 @@
 
 body {
   font-family: 'Calibri';
+  font-size: 14px;
 }
 
 h1,
@@ -14,9 +15,11 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Catamaran';
-  font-weight: 800 !important;
+  font-family: 'poppins', sans-serif;
+  font-weight: 400 !important;
+  font-size:25px;
 }
+
 
 .btn-xl {
   text-transform: uppercase;
@@ -58,6 +61,14 @@ h6 {
 .bg-primary {
   background-color: #ee0979 !important;
 } 
+
+.flex-box1 {
+  display: flex;
+}
+
+.flex-video{
+  margin:10px;
+}
 
 /* .btn-primary {
   background-color: #ee0979;
