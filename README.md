@@ -1,2 +1,2 @@
 # Bus-Booking-System-flask-
-A bus boking system created using flask
+A bus booking system created using flask
