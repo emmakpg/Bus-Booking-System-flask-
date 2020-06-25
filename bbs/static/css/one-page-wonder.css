@@ -4,9 +4,14 @@
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-one-page-wonder/blob/master/LICENSE)
  */
 
+* {
+  box-sizing: border-box;
+}
+
 body {
-  font-family: 'Calibri';
+  font-family: "Calibri";
   font-size: 14px;
+  margin: 0;
 }
 
 h1,
@@ -15,11 +20,10 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'poppins', sans-serif;
+  font-family: "poppins", sans-serif;
   font-weight: 400 !important;
-  font-size:25px;
+  font-size: 25px;
 }
-
 
 .btn-xl {
   text-transform: uppercase;
@@ -57,43 +61,10 @@ h6 {
   letter-spacing: 0.1rem;
 }
 
-
 .bg-primary {
   background-color: #ee0979 !important;
-} 
-
-.flex-box1 {
-  display: flex;
 }
 
-.flex-video{
-  margin:10px;
+.last-section {
+  margin-bottom: 15px;
 }
-
-/* .btn-primary {
-  background-color: #ee0979;
-  border-color: #ee0979;
-}
-
-.btn-primary:active, .btn-primary:focus, .btn-primary:hover {
-  background-color: #bd0760 !important;
-  border-color: #bd0760 !important;
-}
-
-.btn-primary:focus {
-  box-shadow: 0 0 0 0.2rem rgba(238, 9, 121, 0.5);
-}
-
-.btn-secondary {
-  background-color: #ff6a00;
-  border-color: #ff6a00;
-}
-
-.btn-secondary:active, .btn-secondary:focus, .btn-secondary:hover {
-  background-color: #cc5500 !important;
-  border-color: #cc5500 !important;
-}
-
-.btn-secondary:focus {
-  box-shadow: 0 0 0 0.2rem rgba(255, 106, 0, 0.5);
-} */
