@@ -1,33 +1,48 @@
-{% extends "layout.html"%}
+{% extends "layout.html"%} {% block content%}
 
-{% block content%}
-
+<div class="login-div"></div>
 {% for available in availability.items%}
+
 <article class="media content-section mt-4">
-    <img class="rounded-circle account-img" src="{{url_for('static',filename='img/'+ available.bus.image_file)}}">
-      <div class="media-body">
-        <div class="article-metadata">
-          <small class="text-muted">DEPARTURE DATE: <strong>{{ available.date }}</strong></small>
-        </div>
-        <h4 class="mt-3 mb-2">{{available.bus.name}} {{available.route.name}} {{available.time}}</h4>
-      <div class="row"> <h5 class="article-content text-left mr-2 col-10">Amount: GH{{ available.amount }}</h5>
-        <a type="button" class="btn-sm btn-primary" href="{{url_for('users.booking',available_id=available.id)}}"> Book</a>
-    </div> 
-      </div>
-       </article>
+  <img
+    class="rounded-circle account-img"
+    src="{{url_for('static',filename='img/'+ available.bus.image_file)}}"
+  />
+  <div class="media-body">
+    <div class="article-metadata">
+      <small class="text-muted"
+        >DEPARTURE DATE: <strong>{{ available.date }}</strong></small
+      >
+    </div>
+    <h4 class="mt-3 mb-2 m-h4">
+      {{available.bus.name}} {{available.route.name}} {{available.time}}
+    </h4>
+    <div class="row">
+      <h5 class="article-content text-left mr-2 col-10 m-h5">
+        Amount: GH{{ available.amount }}
+      </h5>
+      <a
+        type="button"
+        class="btn-sm btn-primary m-butt"
+        href="{{url_for('users.booking',available_id=available.id)}}"
+        >Book</a
+      >
+    </div>
+  </div>
+</article>
 
-  {% endfor %}
-
-  {% for page_num in availability.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2)%}
-  {% if page_num %}
-      {% if availability.page == page_num%}
-        <a class="btn btn-primary mb-4 mt-3" href="{{ url_for('main.home', page = page_num)}}">{{page_num}}</a>
-      {% else %}
-      <a class="btn btn-outline-primary mb-4 mt-3" href="{{ url_for('main.home', page = page_num)}}">{{page_num}}</a>
-      {% endif %}
-  {% else %}
-      ...
-  {% endif %}
-{% endfor %}
-
-{% endblock content%}
+{% endfor %} {% for page_num in availability.iter_pages(left_edge=1,
+right_edge=1, left_current=1, right_current=2)%} {% if page_num %} {% if
+availability.page == page_num%}
+<a
+  class="btn btn-primary mb-4 mt-3"
+  href="{{ url_for('main.home', page = page_num)}}"
+  >{{page_num}}</a
+>
+{% else %}
+<a
+  class="btn btn-outline-primary mb-4 mt-3"
+  href="{{ url_for('main.home', page = page_num)}}"
+  >{{page_num}}</a
+>
+{% endif %} {% else %} ... {% endif %} {% endfor %} {% endblock content%}

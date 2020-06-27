@@ -8,6 +8,10 @@ nav.navbar {
   display: none;
 }
 
+.login-div {
+  margin-top: 100px !important;
+}
+
 .content-section {
   background: #ffffff;
   padding: 10px 20px;
@@ -68,5 +72,19 @@ a.article-title:hover {
   }
   .login-div {
     margin-top: 100px;
+  }
+  .mobile-book {
+    display: flex;
+    font-size: 12px;
+  }
+  .m-butt {
+    margin-left: 109px;
+  }
+  .m-h4 {
+    font-size: 21px;
+  }
+  .m-h5 {
+    margin-top: -20px;
+    font-size: 16px;
   }
 }
