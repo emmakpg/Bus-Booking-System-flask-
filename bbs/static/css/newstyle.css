@@ -1,0 +1,52 @@
+@import url("https://fonts.googleapis.com/css2?family=Anton&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Anton&family=Lato:wght@300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Anton&family=Lato:wght@300&family=Poppins:wght@500&display=swap");
+
+nav.navbar {
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+  z-index: 2;
+}
+.header-container {
+  background-image: url("/static/img/banner.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
+  margin-bottom: 30px;
+}
+
+.hero-text {
+  color: #d5d02f;
+  font-size: 70px;
+  font-family: "Anton", sans-serif;
+}
+
+.p-hero {
+  color: #fff;
+  font-family: "Lato", sans-serif;
+  font-size: 25px;
+}
+
+.btn.signin-cta {
+  font-size: 18px;
+}
+
+.h-text {
+  font-family: "Poppins";
+}
+
+.p-text {
+  font-family: "Lato", sans-serif;
+}
+
+.content-image {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+}

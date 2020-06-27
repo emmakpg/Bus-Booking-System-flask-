@@ -8,48 +8,30 @@
     />
     <meta name="description" content="" />
     <meta name="author" content="" />
+    <link rel="stylesheet" href="./static/css/newstyle.css" />
+    <link rel="stylesheet" href="./static/css/progress.css" />
+    <link rel="stylesheet" href="./static/css/vidstyle.css" />
+    <link
+    href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    rel="stylesheet"
+    integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+    crossorigin="anonymous"
+  />
 
-    <title>Bus Booking System - Home Page</title>
+    <title>Bus Booking System-Home</title>
 
     <!-- Bootstrap core CSS -->
     <link
-      href="./static/vendor/bootstrap/css/bootstrap.min.css"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
       rel="stylesheet"
     />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins"
-      rel="stylesheet"
-    />
-
-    <!-- Custom fonts for this template -->
-    <link
-      href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i"
-      rel="stylesheet"
-    />
-    <link
-      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-      rel="stylesheet"
-      integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
-      crossorigin="anonymous"
-    />
-    <!-- Custom styles for this template -->
-    <link href="./static/css/one-page-wonder.css" rel="stylesheet" />
-    <link href="./static/main.css" rel="stylesheet" />
-    <link rel="stylesheet" href="./static/css/progress.css" />
-    <link rel="stylesheet" href="./static/css/vidstyle.css" />
   </head>
 
   <body>
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
       <div class="container">
-        <a class="navbar-brand" href="{{ url_for('main.landing')}}"
-          >Bus Booking System</a
-        >
+        <a class="navbar-brand" href="{{ url_for('main.landing')}}">BBS</a>
         <button
           class="navbar-toggler"
           type="button"
@@ -77,7 +59,7 @@
             {% else %}
             <li class="nav-item">
               <a
-                class="nav-link btn btn-primary"
+                class="nav-link"
                 href="{{ url_for('users.login')}}"
                 >Login</a
               >
@@ -93,72 +75,47 @@
       </div>
     </nav>
 
+    <!-- Page Content -->
     <header>
-      <div class="hero-img">
-        <img src="./static/img/Banner_01.jpg" />
+      <div class="header-container">
+        <h1 class="hero-text">Bus Booking System</h1>
+        <p class="p-hero">Hustle Free Online Ticketing System</p>
+        <a href="{{ url_for('users.login')}}" class="btn btn-primary signin-cta">Sign In</a>
       </div>
     </header>
 
-    <section>
-      <div class="container">
-        <div class="row align-items-center">
-          <div class="col-lg-6 order-lg-2">
-            <div class="p-5">
-              <img
-                class="img-fluid rounded-circle"
-                src="./static/img/crop1.jpg"
-                alt=""
-              />
-            </div>
-          </div>
-          <div class="col-lg-6 order-lg-1">
-            <div class="p-5">
-              <h2 class="display-4">Fast and Reliable</h2>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod
-                aliquid, mollitia odio veniam sit iste esse assumenda amet
-                aperiam exercitationem, ea animi blanditiis recusandae! Ratione
-                voluptatum molestiae adipisci, beatae obcaecati.
-              </p>
-            </div>
-          </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 text-center mt-5 tt-text">
+          <h2 class="mt-5 h-text">Fast And Reliable</h2>
+          <p class="p-text">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque
+            corrupti minus ducimus minima odio reiciendis ea maiores. Alias,
+            illum accusantium?
+          </p>
+        </div>
+        <div class="col-lg-6 text-center">
+          <img src="/static/img/b.jpg" alt="" class="content-image" />
         </div>
       </div>
-    </section>
-
-    <section>
-      <div class="container">
-        <div class="row align-items-center">
-          <div class="col-lg-6">
-            <div class="p-5">
-              <img
-                class="img-fluid rounded-circle"
-                src="./static/img/Banner_03.jpg"
-                alt=""
-              />
-            </div>
-          </div>
-          <div class="col-lg-6">
-            <div class="p-5">
-              <h2 class="display-4">Security is Assured</h2>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod
-                aliquid, mollitia odio veniam sit iste esse assumenda amet
-                aperiam exercitationem, ea animi blanditiis recusandae! Ratione
-                voluptatum molestiae adipisci, beatae obcaecati.
-              </p>
-            </div>
-          </div>
+      <div class="row mt-5">
+        <div class="col-lg-6 text-center mt-5">
+          <img src="/static/img/c.jpg" alt="" class="content-image" />
+        </div>
+        <div class="col-6 text-center mt-5">
+          <h2 class="mt-5 h-text">Security is Secured</h2>
+          <p class="p-text">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla,
+            laborum! Eligendi, nam dolorem quidem quaerat assumenda ex illum
+            aliquam non!
+          </p>
         </div>
       </div>
-    </section>
-
-    <section class="last-section">
-      <div class="container">
-        <div class="row align-items-center">
-          <div class="col-lg-6 order-lg-2">
-            <h3 class="vid-text">Check below how it works.</h3>
-            <video
+      <div class="row mt-5">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-8 text-center">
+          <h2 class="mt-5 mb-3 h-text">Check Below How this Works</h2>
+          <video
               src="./static/img/vid.mp4"
               id="video"
               class="screen"
@@ -184,33 +141,22 @@
               <span id="timestamp" class="timestamp">00:00</span>
             </div>
           </div>
-          <div class="col-lg-6 order-lg-1">
-            <div class="p-5">
-              <h2 class="display-4">Book from Anywhere</h2>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod
-                aliquid, mollitia odio veniam sit iste esse assumenda amet
-                aperiam exercitationem, ea animi blanditiis recusandae! Ratione
-                voluptatum molestiae adipisci, beatae obcaecati.
-              </p>
-            </div>
-          </div>
         </div>
       </div>
-    </section>
-
-    <!-- Footer -->
-    <div class="py-5 bg-black">
-      <p class="m-0 text-center text-white small">
-        Copyright &copy; STEPHEN KPOGO 2019
-      </p>
-
-      <!-- /.container -->
+      <div class="col-lg-2"></div>
     </div>
 
+    <footer class="text-center mt-5 mb-3">
+      <small>&copy; STEPHEN KPOGO PROJECT 2020</small>
+    </footer>
+
     <!-- Bootstrap core JavaScript -->
-    <script src="./static/vendor/jquery/jquery.min.js"></script>
-    <script src="./static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs="
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
     <script src="./static/js/vidscript.js"></script>
   </body>
 </html>

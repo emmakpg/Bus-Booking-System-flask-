@@ -48,15 +48,3 @@ a.article-title:hover {
   height: 150px;
   width: 150px;
 }
-
-.hero-img {
-  /* Set a specific height */
-  height: 50%;
-  width: 60%;
-
-  /* Position and center the image to scale nicely on all screens */
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  position: relative;
-}
