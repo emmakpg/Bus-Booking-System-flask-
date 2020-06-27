@@ -1,5 +1,4 @@
 nav.navbar {
-  overflow: hidden;
   position: fixed;
   width: 100%;
   z-index: 2;
@@ -66,5 +65,8 @@ a.article-title:hover {
   }
   .mobile-menu {
     display: inline;
+  }
+  .login-div {
+    margin-top: 100px;
   }
 }

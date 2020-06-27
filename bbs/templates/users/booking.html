@@ -1,114 +1,93 @@
-{% extends "layout.html"%}
+{% extends "layout.html"%} {% block content%}
+<div class="login-div">
+  <!-- FORM HERE -->
+  <form method="POST" action="" , enctype="multipart/form-data">
+    {{form.hidden_tag()}}
+    <fieldset class="form-group">
+      <div class="form-group">
+        {{form.ticket_number.label(class="form-control-label")}} {% if
+        form.ticket_number.errors %} {{form.ticket_number(class="form-control
+        form-control-lg is-invalid")}}
+        <div class="invalid-feedback">
+          {% for error in form.ticket_number.errors %}
+          <span>{{error}}</span>
+          {% endfor %}
+        </div>
+        {% else %} {{form.ticket_number(class="form-control form-control-lg")}}
+        {% endif %}
+      </div>
+      <div class="form-group">
+        {{form.name.label(class="form-control-label")}} {% if form.name.errors
+        %} {{form.name(class="form-control form-control-lg is-invalid")}}
+        <div class="invalid-feedback">
+          {% for error in form.name.errors %}
+          <span>{{error}}</span>
+          {% endfor %}
+        </div>
+        {% else %} {{form.name(class="form-control form-control-lg")}} {% endif
+        %}
+      </div>
+      <div class="form-group">
+        {{form.email.label(class="form-control-label")}} {% if form.email.errors
+        %} {{form.email(class="form-control form-control-lg is-invalid")}}
+        <div class="invalid-feedback">
+          {% for error in form.email.errors %}
+          <span>{{error}}</span>
+          {% endfor %}
+        </div>
+        {% else %} {{form.email(class="form-control form-control-lg")}} {% endif
+        %}
+      </div>
+      <div class="form-group">
+        {{form.phone.label(class="form-control-label")}} {% if form.phone.errors
+        %} {{form.phone(class="form-control form-control-lg is-invalid")}}
+        <div class="invalid-feedback">
+          {% for error in form.phone.errors %}
+          <span>{{error}}</span>
+          {% endfor %}
+        </div>
+        {% else %} {{form.phone(class="form-control form-control-lg")}} {% endif
+        %}
+      </div>
+      <div class="form-group">
+        {{form.bus_route_time.label(class="form-control-label")}} {% if
+        form.bus_route_time.errors %} {{form.bus_route_time(class="form-control
+        form-control-lg is-invalid")}}
+        <div class="invalid-feedback">
+          {% for error in form.bus_route_time.errors %}
+          <span>{{error}}</span>
+          {% endfor %}
+        </div>
+        {% else %} {{form.bus_route_time(class="form-control form-control-lg")}}
+        {% endif %}
+      </div>
+      <div class="form-group">
+        {{form.seat.label(class="form-control-label")}} {% if form.seat.errors
+        %} {{form.seat(class="form-control form-control-lg is-invalid")}}
+        <div class="invalid-feedback">
+          {% for seat in form.seat.errors %}
+          <span>{{error}}</span>
+          {% endfor %}
+        </div>
+        {% else %} {{form.seat(class="form-control form-control-lg")}} {% endif
+        %}
+      </div>
+      <div class="form-group">
+        {{form.date.label(class="form-control-label")}} {% if form.date.errors
+        %} {{form.date(class="form-control form-control-lg is-invalid")}}
+        <div class="invalid-feedback">
+          {% for error in form.date.errors %}
+          <span>{{error}}</span>
+          {% endfor %}
+        </div>
+        {% else %} {{form.date(class="form-control form-control-lg")}} {% endif
+        %}
+      </div>
+    </fieldset>
+    <div class="form-group ml-2">
+      {{form.submit(class="btn btn-primary")}}
+    </div>
+  </form>
+</div>
 
-{% block content%}
-<div class="">
-    <!-- FORM HERE -->
-        <form method="POST" action="", enctype="multipart/form-data">
-            {{form.hidden_tag()}}
-            <fieldset class="form-group"> 
-                <div class='form-group'>
-                    {{form.ticket_number.label(class="form-control-label")}}
-                    {% if form.ticket_number.errors %}
-                        {{form.ticket_number(class="form-control form-control-lg is-invalid")}}
-                        <div class="invalid-feedback">
-                            {% for error in form.ticket_number.errors %}
-                                <span>{{error}}</span>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                    {{form.ticket_number(class="form-control form-control-lg")}}
-                    {% endif %}
-                   
-                </div>
-                <div class='form-group'>
-                    {{form.name.label(class="form-control-label")}}
-                    {% if form.name.errors %}
-                        {{form.name(class="form-control form-control-lg is-invalid")}}
-                        <div class="invalid-feedback">
-                            {% for error in form.name.errors %}
-                                <span>{{error}}</span>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                    {{form.name(class="form-control form-control-lg")}}
-                    {% endif %}
-                   
-                </div>
-                <div class='form-group'>
-                    {{form.email.label(class="form-control-label")}}
-                    {% if form.email.errors %}
-                        {{form.email(class="form-control form-control-lg is-invalid")}}
-                        <div class="invalid-feedback">
-                            {% for error in form.email.errors %}
-                                <span>{{error}}</span>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                    {{form.email(class="form-control form-control-lg")}}
-                    {% endif %}
-                   
-                </div>
-                <div class='form-group'>
-                    {{form.phone.label(class="form-control-label")}}
-                    {% if form.phone.errors %}
-                        {{form.phone(class="form-control form-control-lg is-invalid")}}
-                        <div class="invalid-feedback">
-                            {% for error in form.phone.errors %}
-                                <span>{{error}}</span>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                    {{form.phone(class="form-control form-control-lg")}}
-                    {% endif %}    
-                </div>
-                <div class='form-group'>
-                    {{form.bus_route_time.label(class="form-control-label")}}
-                    {% if form.bus_route_time.errors %}
-                        {{form.bus_route_time(class="form-control form-control-lg is-invalid")}}
-                        <div class="invalid-feedback">
-                            {% for error in form.bus_route_time.errors %}
-                                <span>{{error}}</span>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                    {{form.bus_route_time(class="form-control form-control-lg")}}
-                    {% endif %}
-                   
-                </div>
-                <div class='form-group'>
-                    {{form.seat.label(class="form-control-label")}}
-                    {% if form.seat.errors %}
-                        {{form.seat(class="form-control form-control-lg is-invalid")}}
-                        <div class="invalid-feedback">
-                            {% for seat in form.seat.errors %}
-                                <span>{{error}}</span>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                    {{form.seat(class="form-control form-control-lg")}}
-                    {% endif %}
-                   
-                </div>
-                <div class='form-group'>
-                    {{form.date.label(class="form-control-label")}}
-                    {% if form.date.errors %}
-                        {{form.date(class="form-control form-control-lg is-invalid")}}
-                        <div class="invalid-feedback">
-                            {% for error in form.date.errors %}
-                                <span>{{error}}</span>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                    {{form.date(class="form-control form-control-lg")}}
-                    {% endif %}    
-                </div>
-                
-            </fieldset>
-            <div class='form-group ml-2'>
-                 {{form.submit(class="btn btn-primary")}}
-            </div>
-        </form>
-  </div>
-
-  
 {% endblock content%}
