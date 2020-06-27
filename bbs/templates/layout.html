@@ -35,10 +35,16 @@
               <span class="sr-only">(current)</span>
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{{  url_for('main.about')}}">About</a>
-          </li>
           {% if current_user.is_authenticated%}
+          <li class="nav-item">
+            <a class="nav-link"  href="{{url_for('main.trips')}}">Trips</a>
+        </li>
+        <li class="nav-item mobile-menu">
+          <a class="nav-link"  href="{{url_for('users.account')}}">Account Settings</a>
+      </li>
+      <li class="nav-item mobile-menu">
+        <a class="nav-link"  href="{{url_for('users.mybookings',user_id=current_user.id )}}">My Bookings</a>
+    </li>
           <li class="nav-item">
             <a class="nav-link" href="{{ url_for('users.logout')}}">Logout</a>
           </li>
@@ -72,7 +78,7 @@
 
             {% block content %}{% endblock %}
           </div>
-          <div class="col-md-4">
+          <div class="col-md-4 sidebar">
             <div class="content-section">
               <h3>Our Sidebar</h3>
               <p class='text-muted'>You can put any information here you'd like.

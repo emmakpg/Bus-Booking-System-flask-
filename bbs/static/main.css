@@ -1,3 +1,14 @@
+nav.navbar {
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+  z-index: 2;
+}
+
+.mobile-menu {
+  display: none;
+}
+
 .content-section {
   background: #ffffff;
   padding: 10px 20px;
@@ -47,4 +58,13 @@ a.article-title:hover {
 .bus-img {
   height: 150px;
   width: 150px;
+}
+
+@media (max-width: 500px) {
+  .sidebar {
+    display: none;
+  }
+  .mobile-menu {
+    display: inline;
+  }
 }
