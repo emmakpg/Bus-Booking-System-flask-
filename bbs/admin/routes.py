@@ -24,6 +24,9 @@ def dashboard():
     buses = db.session.query(Buses).count()
     trips = db.session.query(Availability).filter(Availability.status=='available').count()
 
+    FILE_DIR = os.path.dirname(os.path.abspath(__file__))
+    flash(FILE_DIR)
+
     #GRAPH WORK
     date_booked = db.session.query(Booking).filter(Booking.date_booked).order_by(Booking.date_booked.asc()).all()
     booking_schema = BookingSchema(many=True)
@@ -92,7 +95,7 @@ def bookings():
     #Generate CSV for bookings
     abs_path = os.path.abspath("../"+"./BBS/bbs/reports")
     
-    with open( abs_path +'./bookings.csv','w',newline='') as f:
+    with open( abs_path+'./bookings.csv','w',newline='') as f:
         out = csv.writer(f)
         out.writerow(['Ticket Number','Name','Phone','Bus','Seat','Departure Date','Time','Amount','Date Booked'])
         for booking in bookings:
@@ -100,7 +103,6 @@ def bookings():
                     booking.date.strftime('%Y-%m-%d'),booking.route.time,booking.route.amount,booking.date_booked ])
 
 
-    #Generate CSV for Weekly bookings
  
     return render_template('/admin/bookings.html',bookings=bookings)
 
