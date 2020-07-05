@@ -24,8 +24,8 @@ def dashboard():
     buses = db.session.query(Buses).count()
     trips = db.session.query(Availability).filter(Availability.status=='available').count()
 
-    FILE_DIR = os.path.dirname(os.path.abspath(__file__))
-    flash(FILE_DIR)
+    # FILE_DIR = os.path.dirname(os.path.abspath(__file__))
+    # flash(FILE_DIR)
 
     #GRAPH WORK
     date_booked = db.session.query(Booking).filter(Booking.date_booked).order_by(Booking.date_booked.asc()).all()
@@ -93,7 +93,9 @@ def bookings():
     bookings = Booking.query.all()
 
     #Generate CSV for bookings
-    abs_path = os.path.abspath("../"+"./BBS/bbs/reports")
+    #abs_path = os.path.abspath("../"+"./BBS/bbs/reports")
+
+    abs_path = os.path.abspath("../"+"./app/bbs/reports")
     
     with open( abs_path+'./bookings.csv','w',newline='') as f:
         out = csv.writer(f)
