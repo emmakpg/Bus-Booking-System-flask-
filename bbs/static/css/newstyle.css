@@ -8,6 +8,10 @@ nav.navbar {
   width: 100%;
   z-index: 2;
 }
+
+body {
+  margin-bottom: 0;
+}
 .header-container {
   background-image: url("/static/img/banner.jpg");
   background-repeat: no-repeat;
@@ -61,4 +65,14 @@ nav.navbar {
 }
 
 @media (max-width: 500px) {
+}
+
+footer {
+  background-color: black;
+  height: 15vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
 }
