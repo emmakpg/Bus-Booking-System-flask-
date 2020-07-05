@@ -16,6 +16,10 @@ myadmin = Blueprint('myadmin',__name__)
 super_admin.add_view(Controller(User,db.session))
 super_admin.add_view(Controller(Booking,db.session))
 
+FILE_DIR = os.path.dirname(os.path.abspath(__file__))
+dir_of_interest = os.path.join(FILE_DIR, 'reports')
+
+
 
 @myadmin.route('/dashboard')
 @roles_required('admin')
@@ -24,10 +28,7 @@ def dashboard():
     buses = db.session.query(Buses).count()
     trips = db.session.query(Availability).filter(Availability.status=='available').count()
 
-    FILE_DIR = os.path.dirname(os.path.abspath(__file__))
-    PARENT_DIR = os.path.join(FILE_DIR, os.pardir) 
-    flash(PARENT_DIR)
-
+  
     #GRAPH WORK
     date_booked = db.session.query(Booking).filter(Booking.date_booked).order_by(Booking.date_booked.asc()).all()
     booking_schema = BookingSchema(many=True)
@@ -96,9 +97,7 @@ def bookings():
     #Generate CSV for bookings
     #abs_path = os.path.abspath("../"+"./BBS/bbs/reports")
 
-    #abs_path = os.path.abspath("/app/bbs/reports")
-    
-    with open( './bookings.csv','w',newline='') as f:
+    with open( dir_of_interest +'./bookings.csv','w',newline='') as f:
         out = csv.writer(f)
         out.writerow(['Ticket Number','Name','Phone','Bus','Seat','Departure Date','Time','Amount','Date Booked'])
         for booking in bookings:
@@ -232,29 +231,25 @@ def edit_bus(id):
 @myadmin.route('/export_csv')
 @roles_required('admin')
 def export_csv():
-    abs_path = os.path.abspath("../"+"./BBS/bbs/reports")
-    path = abs_path +'\\bookings.csv'
+    path = dir_of_interest +'\\bookings.csv'
     return send_file(path,as_attachment=True)
 
 @myadmin.route('/export_dailybookings_csv')
 @roles_required('admin')
 def export_dailybookings_csv():
-    abs_path = os.path.abspath("../"+"./BBS/bbs/reports")
-    path = abs_path +'\\daily_bookings.csv'
+    path = dir_of_interest +'\\daily_bookings.csv'
     return send_file(path,as_attachment=True)
 
 @myadmin.route('/export_weeklybookings_csv')
 @roles_required('admin')
 def export_weeklybookings_csv():
-    abs_path = os.path.abspath("../"+"./BBS/bbs/reports")
-    path = abs_path +'\\weekly_bookings.csv'
+    path = dir_of_interest +'\\weekly_bookings.csv'
     return send_file(path,as_attachment=True)
 
 @myadmin.route('/export_monthlybookings_csv')
 @roles_required('admin')
 def export_monthlybookings_csv():
-    abs_path = os.path.abspath("../"+"./BBS/bbs/reports")
-    path = abs_path +'\\monthly_bookings.csv'
+    path = dir_of_interest +'\\monthly_bookings.csv'
     return send_file(path,as_attachment=True)
 
 
@@ -275,15 +270,15 @@ def reports():
     date_labels = list(date_vs_booking.keys())
 
     last_update_time = datetime.utcnow().strftime('%H:%M')
-    abs_path = os.path.abspath("../"+"./BBS/bbs/reports")   #path to save reports
+    #abs_path = os.path.abspath("../"+"./BBS/bbs/reports")   #path to save reports
     
     if request.method == 'POST' and 'date' in request.form:
         #flash()
         #Generate CSV for Daily bookings
         booked_today = db.session.query(Booking).filter(Booking.date_booked==form.date.data).order_by(Booking.date_booked.asc()).all()
         
-        if len(booked_today) is not 0:
-            with open( abs_path +'./daily_bookings.csv','w',newline='') as f:
+        if len(booked_today) != 0:
+            with open( dir_of_interest +'./daily_bookings.csv','w',newline='') as f:
              out = csv.writer(f)
              out.writerow(['Ticket Number','Name','Phone','Bus','Seat','Departure Date','Time','Amount','Date Booked'])
              for booking in booked_today:
@@ -304,7 +299,7 @@ def reports():
         month =  form1.month.data
         month_book_dates = [l for l in query if month in l]
     
-        with open( abs_path +'./monthly_bookings.csv','w',newline='') as f:
+        with open( dir_of_interest +'./monthly_bookings.csv','w',newline='') as f:
             out = csv.writer(f)
             out.writerow(['Ticket Number','Name','Phone','Bus','Seat','Departure Date','Time','Amount','Date Booked'])
             for book_date in month_book_dates:
@@ -328,7 +323,7 @@ def reports():
             if len(wkdays_in_bookings)==0:
                 flash(f'No bookings for Week {current_wk}','info')
             else:
-                with open( abs_path +'./weekly_bookings.csv','w',newline='') as f:
+                with open( dir_of_interest +'./weekly_bookings.csv','w',newline='') as f:
                     out = csv.writer(f)
                     out.writerow(['Ticket Number','Name','Phone','Bus','Seat','Departure Date','Time','Amount','Date Booked'])
                     for book_date in wkdays_in_bookings:
