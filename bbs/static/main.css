@@ -80,6 +80,14 @@ a.article-title:hover {
   text-decoration: none;
 }
 
+.booktrip-btn {
+  margin-left: 400px;
+}
+
+.booktrip-btn a:hover {
+  text-decoration: none;
+}
+
 @media (max-width: 500px) {
   .sidebar {
     display: none;
@@ -107,6 +115,11 @@ a.article-title:hover {
 
   .book-btn {
     position: static;
-    margin-left: 40px;
+    margin-left: 165px;
+  }
+
+  .booktrip-btn {
+    position: static;
+    margin-left: 165px;
   }
 }
