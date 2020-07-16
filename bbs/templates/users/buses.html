@@ -8,10 +8,13 @@
   />
   <div class="media-body">
     <div class="article-metadata">
-      <small class="text-muted">{{ bus.number }}</small>
+      <small class="text-muted"
+        ><strong>Car Number: </strong>{{ bus.number }}</small
+      >
     </div>
     <h2>{{ bus.name}}</h2>
     <p class="article-content">{{ bus.description }}</p>
+    <a href="#" class="btn btn-primary">Book</a>
   </div>
 </article>
 

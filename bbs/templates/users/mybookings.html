@@ -23,8 +23,9 @@
       <h5 class="article-content text-left mr-2 col-8">
         Amount: GH{{ booking.route.amount }}
       </h5>
+    </div>
+    <div class="book-btn">
       <a
-        type="button"
         class="btn-sm btn-primary"
         href="{{url_for('users.cancel_booking',book_id=booking.id)}}"
         >Cancel Booking</a

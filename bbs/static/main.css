@@ -1,7 +1,15 @@
+* {
+  box-sizing: border-box;
+}
+
 nav.navbar {
   position: fixed;
   width: 100%;
   z-index: 1;
+}
+
+body {
+  background-color: #f9fafb;
 }
 
 .mobile-menu {
@@ -17,6 +25,7 @@ nav.navbar {
   padding: 10px 20px;
   border: 1px solid #dddddd;
   border-radius: 3px;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.3);
 }
 
 a.article-title:hover {
@@ -63,6 +72,14 @@ a.article-title:hover {
   width: 150px;
 }
 
+.book-btn {
+  margin-left: 400px;
+}
+
+.book-btn a:hover {
+  text-decoration: none;
+}
+
 @media (max-width: 500px) {
   .sidebar {
     display: none;
@@ -86,5 +103,10 @@ a.article-title:hover {
   .m-h5 {
     margin-top: -20px;
     font-size: 16px;
+  }
+
+  .book-btn {
+    position: static;
+    margin-left: 48px;
   }
 }

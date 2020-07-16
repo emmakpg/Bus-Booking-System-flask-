@@ -17,7 +17,7 @@ super_admin.add_view(Controller(User,db.session))
 super_admin.add_view(Controller(Booking,db.session))
 
 FILE_DIR = os.path.dirname(os.path.abspath(__file__))
-dir_of_interest = os.path.join(FILE_DIR)
+dir_of_interest = os.path.join(FILE_DIR,'reports')
 
 
 
