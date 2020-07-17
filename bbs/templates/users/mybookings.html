@@ -1,7 +1,7 @@
 {% extends "layout.html"%} {% block content%}
 <div class="login-div"></div>
 {% for booking in mybookings%}
-<article class="media content-section mt-4">
+<article class="media content-section mt-4 mb-2">
   <img
     class="rounded-circle account-img"
     src="{{url_for('static',filename='img/'+ booking.bus.image_file)}}"
