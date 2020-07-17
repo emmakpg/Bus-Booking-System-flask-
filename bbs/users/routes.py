@@ -102,7 +102,8 @@ def user_buses():
 
 def sendbooking_mail(email,ticket_no,seat):
     message = Message(subject='BBS-Bus Booking Details',sender='BBS',recipients=[email])
-    message.html = f'<p>This is your booking number: {ticket_no}</p><p><strong>Seat:</strong>{seat}</p>'                 
+    #message.html = f'<p>This is your booking number: {ticket_no}</p><p><strong>Seat:</strong>{seat}</p>'  
+    message.html = render_template('/users/mail.html',ticket_no=ticket_no,seat=seat)               
     mail.send(message)
 
 @users.route('/booking-#<int:available_id>',methods =['GET','POST'])

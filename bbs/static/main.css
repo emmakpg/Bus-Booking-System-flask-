@@ -88,6 +88,14 @@ a.article-title:hover {
   text-decoration: none;
 }
 
+.alert-success {
+  position: absolute;
+  padding: 5px 200px;
+  margin: 5px;
+  top: 54px;
+  z-index: 2;
+}
+
 @media (max-width: 500px) {
   .sidebar {
     display: none;
