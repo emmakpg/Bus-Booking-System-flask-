@@ -130,4 +130,8 @@ a.article-title:hover {
     position: static;
     margin-left: 0px;
   }
+
+  .alert-success {
+    padding: 5px 30px;
+  }
 }
